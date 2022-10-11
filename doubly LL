@@ -23,6 +23,14 @@ void insert(int a[],int n){
     }
     
 }
+void count(struct node *p){
+    int count=0;
+    while(p!=0){
+        count++;
+        p=p->next;
+    }
+    printf("total no of nodes = %d",count);
+}
 void display(struct node *p){
     printf("The Elements are: \n");
     while(p!=NULL){
@@ -88,5 +96,6 @@ scanf("%d",&x1);
 scanf("%d",&x3);
 insertlast(head,x3);
 display(head);
+count(head);
     return 0;
 }
