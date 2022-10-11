@@ -1,0 +1,92 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+    struct node *prev;
+    int data;
+    struct node *next;
+}*head=NULL;
+void insert(int a[],int n){
+    struct node *t,*last;
+    head=(struct node *)malloc(sizeof(struct node));
+    head->data=a[0];
+    head->prev=NULL;
+    head->next=NULL;
+    last=head;
+    for(int i=1;i<n;i++){
+           t=(struct node *)malloc(sizeof(struct node));
+           t->data=a[i];
+           t->next=NULL;
+           t->prev=last;
+         last->next=t;
+           last=t;
+    }
+    
+}
+void display(struct node *p){
+    printf("The Elements are: \n");
+    while(p!=NULL){
+        if(p->next==NULL) printf("%d->NULL\n",p->data);
+       // if(p->prev==NULL) printf("NULL->");
+       else printf("%d<->",p->data);
+        p=p->next;
+    }
+}
+void insertfirst(struct node *p,int x){
+    struct node *t;
+    t=(struct node *)malloc(sizeof(struct node));
+    t->data=x;
+    t->next=head;
+    t->prev=NULL;
+    head=t;
+}
+void insertmiddle(struct node *p,int pos,int x){
+    int i;
+    struct node *t;
+    t=(struct node *)malloc(sizeof(struct node));
+    t->data=x;
+    for(i=0;i<pos-1;i++){
+        p=p->next;
+    }
+    t->next=p->next;
+    p->next=t;
+    t->prev=p;
+    p->next->prev=t;
+}
+void insertlast(struct node *p,int x){
+     struct node *t;
+    t=(struct node *)malloc(sizeof(struct node));
+    t->data=x;
+    while(p!=0){
+        if(p->next==NULL){
+            p->next=t;
+            t->next=NULL;
+            t->prev=p;
+        }
+        p=p->next;
+    }
+}
+int main() {
+    int a[100],n,i,x1,x2,x3;
+    printf("Enter number of elements:\n");
+    scanf("%d",&n);
+    printf("Enter the elements:\n");
+    for(i=0;i<n;i++){
+        scanf("%d",&a[i]);
+    }
+    insert(a,n);
+    display(head);
+    printf("enter element to be insert at first:\n");
+scanf("%d",&x1);
+    insertfirst(head,x1);
+    display(head);
+     printf("enter element and position to be insert in list:\n");
+     scanf("%d",&x2);
+     insertmiddle(head,3,x2);
+     display(head);
+      printf("enter element to be insert at last:\n");
+scanf("%d",&x3);
+insertlast(head,x3);
+display(head);
+    return 0;
+}
